@@ -11,8 +11,8 @@ Status: Not Active / Suspended -> Updates limited to fixing bugs/issues
 
 [Sponge Ore](https://ore.spongepowered.org/Simon_Flash/TriviaQuest)   
 [Sponge Thread](https://forums.spongepowered.org/t/triviaquest-question-in-game-trivia-questions-v1-2-0/18051)   
-[DaeM0nS GitHub](https://github.com/SimonFlash/TriviaQuest)  
-[DaeM0nS Downloads](https://github.com/SimonFlash/TriviaQuest/Releases)  
+[GitHub](https://github.com/DaeM0nS/TriviaQuest/tree/Forge)  
+[Downloads](https://github.com/DaeM0nS/TriviaQuest/Releases)  
 [Support Discord](https://discordapp.com/invite/4wayq37)  
 
 ***
@@ -25,7 +25,6 @@ TriviaQuest is quite simple in theory, but does it's job amazingly well. If you'
 
 ## Wiki Pages
 
-[Simon_Flash Configuration](https://github.com/SimonFlash/TriviaQuest/wiki/Configuration)  
-[DaeM0nS Configuration](https://github.com/DaeM0nS/TriviaQuest/wiki/Configuration)
-[Simon_Flash Documentation](https://github.com/SimonFlash/TriviaQuest/wiki/Documentation)  
-[DaeM0nS Documentation](https://github.com/DaeM0nS/TriviaQuest)
+[Configuration](https://github.com/DaeM0nS/TriviaQuest/wiki/Configuration)
+[Documentation](https://github.com/DaeM0nS/TriviaQuest)
+
