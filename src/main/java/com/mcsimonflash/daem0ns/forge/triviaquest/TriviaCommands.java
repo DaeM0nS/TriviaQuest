@@ -1,12 +1,12 @@
-package com.mcsimonflash.sponge.triviaquest;
+package com.mcsimonflash.daem0ns.forge.triviaquest;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.mcsimonflash.sponge.triviaquest.managers.Config;
-import com.mcsimonflash.sponge.triviaquest.managers.Trivia;
-import com.mcsimonflash.sponge.triviaquest.managers.Util;
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Config;
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Trivia;
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Util;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

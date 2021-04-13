@@ -1,4 +1,4 @@
-package com.mcsimonflash.sponge.triviaquest.managers;
+package com.mcsimonflash.daem0ns.forge.triviaquest.managers;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
-import com.mcsimonflash.sponge.triviaquest.TriviaQuest;
-import com.mcsimonflash.sponge.triviaquest.objects.Completion;
-import com.mcsimonflash.sponge.triviaquest.objects.Question;
-import com.mcsimonflash.sponge.triviaquest.objects.Scramble;
+import com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest;
+import com.mcsimonflash.daem0ns.forge.triviaquest.objects.Completion;
+import com.mcsimonflash.daem0ns.forge.triviaquest.objects.Question;
+import com.mcsimonflash.daem0ns.forge.triviaquest.objects.Scramble;
 
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;

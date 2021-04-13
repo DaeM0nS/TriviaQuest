@@ -1,4 +1,4 @@
-package com.mcsimonflash.sponge.triviaquest;
+package com.mcsimonflash.daem0ns.forge.triviaquest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.Logger;
 
-import com.mcsimonflash.sponge.triviaquest.managers.Config;
-import com.mcsimonflash.sponge.triviaquest.managers.Trivia;
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Config;
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Trivia;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod(modid = "triviaquest", name = "TriviaQuest", version = "2.1.1-forge", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12.2]", serverSideOnly = true)
+@Mod(modid = "triviaquest", name = "TriviaQuest", version = "2.2.0-forge", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12.2]", serverSideOnly = true)
 public class TriviaQuest {
 
 	@Instance("triviaquest")
@@ -51,14 +51,14 @@ public class TriviaQuest {
 	@Mod.EventHandler
 	public void onInitilization(FMLInitializationEvent event) {
 		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
-		logger.info("|  TriviaQuest - Version 2.1.1-Forge  |");
+		logger.info("|  TriviaQuest - Version 2.2.0-Forge  |");
 		logger.info("|      Developed By: Simon_Flash      |");
 		logger.info("|          Ported By: DaeM0nS         |");
 		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
 		Config.readConfig();
 		try {
-			wiki = new URL("https://github.com/SimonFlash/TriviaQuest/wiki");
-			discord = new URL("https://discordapp.com/invite/4wayq37");
+			wiki = new URL("https://github.com/DaeM0nS/TriviaQuest/wiki");
+			discord = new URL("http://discord.gg/FxWZsNz");
 		} catch (MalformedURLException ignored) {
 			logger.error("Unable to locate TriviaQuest Wiki / Support Discord!");
 		}

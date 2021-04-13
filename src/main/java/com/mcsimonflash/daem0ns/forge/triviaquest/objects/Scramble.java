@@ -1,18 +1,18 @@
-package com.mcsimonflash.sponge.triviaquest.objects;
-
-import com.mcsimonflash.sponge.triviaquest.managers.Config;
-import com.mcsimonflash.sponge.triviaquest.managers.Util;
+package com.mcsimonflash.daem0ns.forge.triviaquest.objects;
 
 import java.util.List;
 
-public class Completion implements Trivia {
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Config;
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Util;
+
+public class Scramble implements Trivia {
 
     public String Word;
     public List<String> Choices;
     public int Duration;
     public boolean ShowAnswer;
 
-    public Completion(String word, List<String> choices, int duration, boolean showAnswer) {
+    public Scramble(String word, List<String> choices, int duration, boolean showAnswer) {
         Word = word;
         Choices = choices;
         Duration = duration;
@@ -21,12 +21,12 @@ public class Completion implements Trivia {
 
     @Override
     public String getQuestion() {
-        return Config.completionQuestion.replace("<word>", Choices.isEmpty() ? Util.getCompletion(Word) : Choices.get(Util.random.nextInt(Choices.size())));
+        return Config.scrambleQuestion.replace("<word>", Choices.isEmpty() ? Util.getScramble(Word) : Choices.get(Util.random.nextInt(Choices.size())));
     }
 
     @Override
     public String getAnswer() {
-        return Config.completionAnswer.replace("<word>", Word);
+        return Config.scrambleAnswer.replace("<word>", Word);
     }
 
     @Override

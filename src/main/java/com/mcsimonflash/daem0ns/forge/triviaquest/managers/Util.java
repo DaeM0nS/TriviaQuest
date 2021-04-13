@@ -1,4 +1,4 @@
-package com.mcsimonflash.sponge.triviaquest.managers;
+package com.mcsimonflash.daem0ns.forge.triviaquest.managers;
 
 import java.io.File;
 import java.net.URISyntaxException;

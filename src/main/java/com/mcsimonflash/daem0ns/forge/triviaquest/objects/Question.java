@@ -1,4 +1,4 @@
-package com.mcsimonflash.sponge.triviaquest.objects;
+package com.mcsimonflash.daem0ns.forge.triviaquest.objects;
 
 import java.util.List;
 

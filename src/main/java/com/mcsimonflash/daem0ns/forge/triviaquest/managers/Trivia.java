@@ -1,10 +1,10 @@
-package com.mcsimonflash.sponge.triviaquest.managers;
+package com.mcsimonflash.daem0ns.forge.triviaquest.managers;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.mcsimonflash.sponge.triviaquest.TriviaQuest;
+import com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -17,8 +17,8 @@ public class Trivia {
 
     public static boolean runnerEnabled = false;
     public static int triviaIndex = 0;
-    public static com.mcsimonflash.sponge.triviaquest.objects.Trivia trivia = null;
-    public static List<com.mcsimonflash.sponge.triviaquest.objects.Trivia> triviaList = Lists.newArrayList();
+    public static com.mcsimonflash.daem0ns.forge.triviaquest.objects.Trivia trivia = null;
+    public static List<com.mcsimonflash.daem0ns.forge.triviaquest.objects.Trivia> triviaList = Lists.newArrayList();
 
     public static void startRunner() {
         if (Trivia.trivia != null) {
