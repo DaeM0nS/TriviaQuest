@@ -10,10 +10,8 @@ Status: Not Active / Suspended -> Updates limited to fixing bugs/issues
 ## Reference Links
 
 [Sponge Ore](https://ore.spongepowered.org/Simon_Flash/TriviaQuest)   
-[Sponge Thread](https://forums.spongepowered.org/t/triviaquest-question-in-game-trivia-questions-v1-2-0/18051)  
-[Simon_Flash GitHub](https://github.com/SimonFlash/TriviaQuest)  
+[Sponge Thread](https://forums.spongepowered.org/t/triviaquest-question-in-game-trivia-questions-v1-2-0/18051)   
 [DaeM0nS GitHub](https://github.com/SimonFlash/TriviaQuest)  
-[Simon_Flash Downloads](https://github.com/SimonFlash/TriviaQuest/Releases) 
 [DaeM0nS Downloads](https://github.com/SimonFlash/TriviaQuest/Releases)  
 [Support Discord](https://discordapp.com/invite/4wayq37)  
 
