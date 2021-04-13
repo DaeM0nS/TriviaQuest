@@ -23,7 +23,7 @@ config {
     # The format used for scramble answers (use <word> for the word)
     scramble-answer="&fThe word was &d<word>&f!"
     # Show answers to to the question after trivia ends.
-    show-answers=false
+    show-answers=true
     # Interval between trivia questions by the runner, in seconds.
     trivia-interval=300
     # Length of each trivia question, in seconds.

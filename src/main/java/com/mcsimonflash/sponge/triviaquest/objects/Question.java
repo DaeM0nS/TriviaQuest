@@ -6,10 +6,14 @@ public class Question implements Trivia {
 
     public String Question;
     public List<String> Answers;
+    public int Duration;
+    public boolean ShowAnswer;
 
-    public Question(String question, List<String> answers) {
+    public Question(String question, List<String> answers, int duration, boolean showAnswer) {
         Question = question;
         Answers = answers;
+        Duration = duration;
+        ShowAnswer=showAnswer;
     }
 
     @Override
@@ -26,4 +30,14 @@ public class Question implements Trivia {
     public boolean checkAnswer(String str) {
         return Answers.stream().anyMatch(a -> a.equalsIgnoreCase(str));
     }
+
+	@Override
+	public int getDuration() {
+		return Duration;
+	}
+
+	@Override
+	public boolean showAnswer() {
+		return ShowAnswer;
+	}
 }

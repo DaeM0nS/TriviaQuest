@@ -1,125 +1,127 @@
 package com.mcsimonflash.sponge.triviaquest;
 
-import com.google.inject.Inject;
-import com.mcsimonflash.sponge.triviaquest.commands.AnswerTrivia;
-import com.mcsimonflash.sponge.triviaquest.commands.Base;
-import com.mcsimonflash.sponge.triviaquest.commands.PostTrivia;
-import com.mcsimonflash.sponge.triviaquest.commands.ToggleRunner;
-import com.mcsimonflash.sponge.triviaquest.managers.Config;
-import com.mcsimonflash.sponge.triviaquest.managers.Trivia;
-import org.slf4j.Logger;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.args.GenericArguments;
-import org.spongepowered.api.command.spec.CommandSpec;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.Order;
-import org.spongepowered.api.event.filter.cause.Root;
-import org.spongepowered.api.event.game.GameReloadEvent;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GameStartingServerEvent;
-import org.spongepowered.api.event.message.MessageChannelEvent;
-import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.text.Text;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
-@Plugin(id = "triviaquest", name = "TriviaQuest", version = "2.1.1", description = "In-Game Trivia Questions", authors = "Simon_Flash")
+import org.apache.logging.log4j.Logger;
+
+import com.mcsimonflash.sponge.triviaquest.managers.Config;
+import com.mcsimonflash.sponge.triviaquest.managers.Trivia;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ServerChatEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+@Mod(modid = "triviaquest", name = "TriviaQuest", version = "2.1.1-forge", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12.2]", serverSideOnly = true)
 public class TriviaQuest {
 
-    private static TriviaQuest instance;
-    private static PluginContainer container;
-    private static Logger logger;
-    private static URL wiki;
-    private static URL discord;
+	@Instance("triviaquest")
+	private static TriviaQuest instance;
 
-    @Inject
-    public TriviaQuest(PluginContainer container) {
-        instance = this;
-        TriviaQuest.container = container;
-        logger = container.getLogger();
-    }
+	private File modDirectory;
 
-    @Listener
-    public void onInitilization(GameInitializationEvent event) {
-        logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
-        logger.info("|     TriviaQuest - Version 2.1.1     |");
-        logger.info("|      Developed By: Simon_Flash      |");
-        logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
-        Config.readConfig();
-        try {
-            wiki = new URL("https://github.com/SimonFlash/TriviaQuest/wiki");
-            discord = new URL("https://discordapp.com/invite/4wayq37");
-        } catch (MalformedURLException ignored) {
-            logger.error("Unable to locate TriviaQuest Wiki / Support Discord!");
-        }
-        CommandSpec AnswerTrivia = CommandSpec.builder()
-                .executor(new AnswerTrivia())
-                .description(Text.of("Answer a TriviaQuest trivia"))
-                .permission("triviaquest.answertrivia.base")
-                .arguments(GenericArguments.remainingJoinedStrings(Text.of("answer")))
-                .build();
-        CommandSpec PostTrivia = CommandSpec.builder()
-                .executor(new PostTrivia())
-                .description(Text.of("Posts TriviaQuest trivia"))
-                .permission("triviaquest.posttrivia.base")
-                .build();
-        CommandSpec ToggleRunner = CommandSpec.builder()
-                .executor(new ToggleRunner())
-                .description(Text.of("Starts automatic TriviaQuest trivia"))
-                .permission("triviaquest.togglerunner.base")
-                .build();
-        CommandSpec TriviaQuest = CommandSpec.builder()
-                .executor(new Base())
-                .description(Text.of("Opens in-game documentation"))
-                .permission("triviaquest.base")
-                .child(AnswerTrivia, "answertrivia", "answer", "ans")
-                .child(PostTrivia, "posttrivia", "post", "pt")
-                .child(ToggleRunner, "togglerunner", "toggle", "tr")
-                .build();
-        Sponge.getCommandManager().register(instance, TriviaQuest, "triviaquest", "trivia", "tq");
-    }
+	private static Logger logger;
+	private static URL wiki;
+	private static URL discord;
 
-    @Listener
-    public void onStart(GameStartingServerEvent event) {
-        if (Trivia.runnerEnabled) {
-            Trivia.startRunner();
-        }
-    }
+	private int timer = 0;
 
-    @Listener
-    public void onReload(GameReloadEvent event) {
-        Config.readConfig();
-        if (Trivia.runnerEnabled) {
-            Trivia.startRunner();
-        }
-    }
+	public boolean started = false;
 
-    @Listener(order = Order.EARLY)
-    public void onMessageSend(MessageChannelEvent.Chat event, @Root Player player) {
-        if (Trivia.trivia != null && player.hasPermission("triviaquest.answertrivia.chat")) {
-            if (Trivia.processAnswer(player, event.getRawMessage().toPlain())) {
-                event.setMessageCancelled(true);
-            }
-        }
-    }
+	public static long latestTrivia = System.currentTimeMillis();
 
-    public static TriviaQuest getInstance() {
-        return instance;
-    }
-    public static PluginContainer getContainer() {
-        return container;
-    }
-    public static Logger getLogger() {
-        return logger;
-    }
-    public static URL getWiki() {
-        return wiki;
-    }
-    public static URL getDiscord() {
-        return discord;
-    }
+	@Mod.EventHandler
+	public void onPreInit(FMLPreInitializationEvent event) throws FileNotFoundException, UnsupportedEncodingException {
+		instance = this;
+		logger = event.getModLog();
+		setModDirectory(new File(event.getModConfigurationDirectory(), "triviaquest"));
+		MinecraftForge.EVENT_BUS.register(this);
+	}
 
+	@Mod.EventHandler
+	public void onInitilization(FMLInitializationEvent event) {
+		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
+		logger.info("|  TriviaQuest - Version 2.1.1-Forge  |");
+		logger.info("|      Developed By: Simon_Flash      |");
+		logger.info("|          Ported By: DaeM0nS         |");
+		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
+		Config.readConfig();
+		try {
+			wiki = new URL("https://github.com/SimonFlash/TriviaQuest/wiki");
+			discord = new URL("https://discordapp.com/invite/4wayq37");
+		} catch (MalformedURLException ignored) {
+			logger.error("Unable to locate TriviaQuest Wiki / Support Discord!");
+		}
+	}
+	
+	@Mod.EventHandler
+	public void onStart(FMLServerStartingEvent event) {
+		if (Trivia.runnerEnabled) {
+			Trivia.startRunner();
+		}
+		event.registerServerCommand(new TriviaCommands());
+	}
+
+	@SubscribeEvent
+	public void onTickEvent(TickEvent.ServerTickEvent event) {
+		if (!started)
+			return;
+		if (event.phase.equals(TickEvent.Phase.START)) {
+			if (timer == 20) {
+				if (Trivia.trivia == null) {
+					if (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - latestTrivia) >= Config.triviaInterval) {
+						Trivia.askQuestion(false);
+						latestTrivia = System.currentTimeMillis();
+					}
+				} else if (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - latestTrivia) >= Trivia.trivia.getDuration()) {
+					Trivia.closeQuestion(false);
+				}
+				timer = -1;
+			}
+			timer++;
+		}
+	}
+
+	@SubscribeEvent
+	public void onMessageSend(ServerChatEvent event) {
+		if (Trivia.trivia != null && event.getPlayer().canUseCommand(0, "triviaquest.answertrivia.chat")) {
+			if (Trivia.processAnswer(event.getPlayer(), event.getMessage())) {
+				event.setCanceled(true);
+			}
+		}
+	}
+
+	public static TriviaQuest getInstance() {
+		return instance;
+	}
+
+	public static Logger getLogger() {
+		return logger;
+	}
+
+	public static URL getWiki() {
+		return wiki;
+	}
+
+	public static URL getDiscord() {
+		return discord;
+	}
+
+	public File getModDirectory() {
+		return modDirectory;
+	}
+
+	public void setModDirectory(File modDirectory) {
+		this.modDirectory = modDirectory;
+	}
 }

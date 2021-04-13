@@ -1,22 +1,90 @@
-plugins {
-    id 'java'
-    id 'org.spongepowered.plugin' version '0.8.1'
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+		maven {
+			url = 'https://oss.sonatype.org/content/groups/public' 
+		}
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
 }
 
-group 'com.mcsimonflash.sponge.triviaquest'
-version '2.1.1'
-ext.spongeversion = '7.1.0-SNAPSHOT'
+plugins {
+    id 'maven'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '2.2.0'
+group = "com.mcsimonflash.daem0ns.forge.triviaquest"
+archivesBaseName = "TriviaQuest-Forge"
+
+minecraft {
+    version = "1.12.2-14.23.5.2838"
+    mappings = 'stable_39'
+	runDir = "run"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://oss.sonatype.org/content/repositories/snapshots'
+    }
+    maven {
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+}
+
 
 dependencies {
-    compile "org.spongepowered:spongeapi:${spongeversion}"
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile(group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: '3.7.1') {
+        exclude module: 'guava'
+    }
 }
 
-jar {
-    archiveName = "${project.name}-s${spongeversion[0..2]}-v${version}.jar"
+jar{
+    includeEmptyDirs = false
+    classifier = 'server'
+    version = "${project.minecraft.version}-v${project.version}"
 }
 
-task copyJars(type: Copy) {
-    from jar into project.file("#releases/${version}")
+def repackPackage = 'repack'
+shadowJar {
+    classifier = 'universal' // This is now the main jar
+    relocate 'com.typesafe.config', "${repackPackage}.com.typesafe.config"
+    relocate 'ninja.leaping.configurate', "${repackPackage}.ninja.leaping.configurate"
 }
 
-build.dependsOn(copyJars)
+[jar, shadowJar, sourceJar]*.version = "$minecraft.version-$project.version"
+
+reobf {
+    shadowJar { mappingType = 'SEARGE' }
+}
+
+tasks.build.dependsOn reobfShadowJar
+
+artifacts {
+    archives shadowJar
+}
+
+
+// Enables use of the section character (ยง) instead of long tags. Thanks, Hiroku!
+//noinspection GroovyAssignabilityCheck
+tasks.withType(JavaCompile)
+{
+    task ->
+    task.options.encoding = 'UTF-8'
+    task.options.fork = true
+}
+compileJava.options.encoding = 'UTF-8'

@@ -1,39 +1,30 @@
 package com.mcsimonflash.sponge.triviaquest.managers;
 
-import com.google.common.collect.Lists;
-
-import com.mcsimonflash.sponge.triviaquest.TriviaQuest;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.scheduler.Task;
-import org.spongepowered.api.text.Text;
-
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
+import com.google.common.collect.Lists;
+import com.mcsimonflash.sponge.triviaquest.TriviaQuest;
+
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class Trivia {
 
-    public static Text prefix;
+    public static String prefix;
 
     public static boolean runnerEnabled = false;
     public static int triviaIndex = 0;
-    public static Task runnerTask;
     public static com.mcsimonflash.sponge.triviaquest.objects.Trivia trivia = null;
     public static List<com.mcsimonflash.sponge.triviaquest.objects.Trivia> triviaList = Lists.newArrayList();
 
     public static void startRunner() {
-        if (runnerTask != null) {
-            runnerTask.cancel();
+        if (Trivia.trivia != null) {
+        	Trivia.trivia=null;
         }
-        runnerTask = Task.builder()
-                .name("TriviaRunner")
-                .execute(t -> {
-                    askQuestion(false);
-                })
-                .delay(Config.triviaInterval, TimeUnit.SECONDS)
-                .submit(TriviaQuest.getInstance());
+        TriviaQuest.getInstance().started = true;
     }
 
     public static void newQuestion() {
@@ -47,10 +38,7 @@ public class Trivia {
     public static void askQuestion(boolean override) {
         if (shouldTriviaRun(override) && trivia == null) {
             newQuestion();
-            Sponge.getServer().getBroadcastChannel().send(prefix.concat(Util.toText(trivia.getQuestion())));
-            runnerTask = Task.builder().execute(t -> {
-                closeQuestion(false);
-            }).name("Question").delay(Config.triviaLength, TimeUnit.SECONDS).submit(TriviaQuest.getInstance());
+            FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(prefix+trivia.getQuestion()));
         } else if (runnerEnabled) {
             startRunner();
         }
@@ -58,12 +46,10 @@ public class Trivia {
 
     public static void closeQuestion(boolean answered) {
         if (!answered) {
-            Sponge.getServer().getBroadcastChannel().send(prefix.concat(Util.toText("Times up! " + (Config.showAnswers ? trivia.getAnswer() : "Better luck next time!"))));
+        	FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(Util.getText(prefix+"Times up! " + (Config.showAnswers && trivia.showAnswer() ? trivia.getAnswer() : "Better luck next time!"))));
         }
         trivia = null;
-        if (runnerTask != null) {
-            runnerTask.cancel();
-        }
+
         if (runnerEnabled) {
             startRunner();
         }
@@ -75,19 +61,19 @@ public class Trivia {
         } else if (!runnerEnabled) {
             return false;
         }
-        return Sponge.getServer().getOnlinePlayers().size() >= Config.enableTriviaCount;
+        return FMLCommonHandler.instance().getMinecraftServerInstance().getOnlinePlayerNames().length >= Config.enableTriviaCount;
     }
 
-    public static boolean processAnswer(CommandSource src, String answer) {
+    public static boolean processAnswer(ICommandSender src, String answer) {
         if (trivia.checkAnswer(answer)) {
-            Sponge.getServer().getBroadcastChannel().send(prefix.concat(Util.toText("&d" + src.getName() + "&f got it! " + (Config.showAnswers ? trivia.getAnswer() : "Better luck next time!"))));
-            if (Sponge.getServer().getOnlinePlayers().size() >= Config.enableRewardsCount) {
+        	FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(Util.getText(prefix+"&d" + src.getName() + "&f got it! " + (Config.showAnswers && trivia.showAnswer() ? trivia.getAnswer() : "Better luck next time!"))));
+            if (FMLCommonHandler.instance().getMinecraftServerInstance().getOnlinePlayerNames().length >= Config.enableRewardsCount) {
                 String rewardCmd = Util.getReward().orElse(null);
                 if (rewardCmd != null && !rewardCmd.isEmpty()) {
-                    if (src instanceof Player) {
-                        Sponge.getCommandManager().process(Sponge.getServer().getConsole(), rewardCmd.replace("<player>", src.getName()));
+                    if (src instanceof EntityPlayerMP) {
+                    	FMLCommonHandler.instance().getMinecraftServerInstance().commandManager.executeCommand(FMLCommonHandler.instance().getMinecraftServerInstance(), rewardCmd.replace("<player>", src.getName()));
                     } else {
-                        src.sendMessage(prefix.concat(Util.toText("Sorry! Only a player can receive a reward!")));
+                        src.sendMessage(new TextComponentString(Util.getText(prefix+"Sorry! Only a player can receive a reward!")));
                     }
                 }
             }

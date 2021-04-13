@@ -7,5 +7,9 @@ public interface Trivia {
     String getAnswer();
 
     boolean checkAnswer(String str);
+    
+    int getDuration();
+
+    boolean showAnswer();
 
 }

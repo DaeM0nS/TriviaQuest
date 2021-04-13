@@ -9,10 +9,14 @@ public class Completion implements Trivia {
 
     public String Word;
     public List<String> Choices;
+    public int Duration;
+    public boolean ShowAnswer;
 
-    public Completion(String word, List<String> choices) {
+    public Completion(String word, List<String> choices, int duration, boolean showAnswer) {
         Word = word;
         Choices = choices;
+        Duration = duration;
+        ShowAnswer=showAnswer;
     }
 
     @Override
@@ -29,4 +33,14 @@ public class Completion implements Trivia {
     public boolean checkAnswer(String str) {
         return str.equalsIgnoreCase(Word);
     }
+
+	@Override
+	public int getDuration() {
+		return Duration;
+	}
+
+	@Override
+	public boolean showAnswer() {
+		return ShowAnswer;
+	}
 }

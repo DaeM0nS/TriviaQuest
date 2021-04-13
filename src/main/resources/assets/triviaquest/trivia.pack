@@ -13,11 +13,12 @@ trivia {
             # Choices for completion forms
             choices=["_nt_d__es_abl_s___nt_ria_i_m"]
             word="Antidisestablishmentarianism"
+            show-answer=false
         }
     }
     questions {
         Developer {
-            answers=["Simon_Flash", "Simon"]
+            answers=["Simon_Flash", "Simon", "DaeM0nS"]
             question="Who is the developer of TriviaQuest?"
         }
     }
@@ -25,6 +26,7 @@ trivia {
         Spongie {
             # No choices are give, so scrambles will be generated.
             word="Spongie"
+            duration=10
         }
     }
 }
