@@ -1,8 +1,5 @@
 package com.mcsimonflash.daem0ns.forge.triviaquest.managers;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -14,16 +11,6 @@ import java.util.stream.IntStream;
 public class Util {
 
     public static Random random = new Random();
-    
-    public static File getFileFromResource(String fileName) throws URISyntaxException{
-        ClassLoader classLoader = Util.class.getClassLoader();
-        URL resource = classLoader.getResource("assets/triviaquest/"+fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("assets/triviaquest/"+fileName);
-        } else {
-            return new File(resource.toURI());
-        }
-    }
 
     public static String getText(String message) {
     	/*return message.replaceAll("(?<!\\\\)&", "\u00A7");*/
@@ -44,7 +31,7 @@ public class Util {
         message = message.replaceAll("&8","\u00A78");
         message = message.replaceAll("&0","\u00A70");
         message = message.replaceAll("&r","\u00A7r");
-        message = message.replaceAll("&l","\u00A71");
+        message = message.replaceAll("&l","\u00A7l");
         message = message.replaceAll("&o","\u00A7o");
         message = message.replaceAll("&n","\u00A7n");
         message = message.replaceAll("&m","\u00A7m");

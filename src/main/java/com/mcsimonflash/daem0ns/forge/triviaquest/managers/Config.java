@@ -1,7 +1,7 @@
 package com.mcsimonflash.daem0ns.forge.triviaquest.managers;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -48,13 +48,17 @@ public class Config {
 			Files.createDirectories(TriviaQuest.getInstance().getModDirectory().toPath());
 			Path core = dir.resolve("triviaquest.core");
 			if(!core.toFile().exists()) {
-				Files.copy(Util.getFileFromResource("triviaquest.core").toPath(), core);
+				try(InputStream iStream = Config.class.getResourceAsStream("/assets/triviaquest/triviaquest.core");){
+					Files.copy(iStream, core);
+				}
 			}
 			if (Files.notExists(packs)) {
 				Files.createDirectories(packs);
 				Path f = packs.resolve("trivia.pack");
 				if(!f.toFile().exists()) {
-					Files.copy(Util.getFileFromResource("trivia.pack").toPath(), f);
+					try(InputStream iStream = Config.class.getResourceAsStream("/assets/triviaquest/trivia.pack");){
+						Files.copy(iStream, f);
+					}
 				}
 			}
 			CommentedConfigurationNode root = HoconConfigurationLoader.builder().setPath(core).build().load();
@@ -88,7 +92,7 @@ public class Config {
 			} else if (root.getNode("config", "enable-on-startup").getBoolean(false)) {
 				Trivia.runnerEnabled = true;
 			}
-		} catch (IOException | URISyntaxException e) {
+		} catch (IOException e) {
 			TriviaQuest.getLogger().error("Config could not be loaded!");
 			e.printStackTrace();
 		}

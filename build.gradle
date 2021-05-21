@@ -25,7 +25,7 @@ apply plugin: 'eclipse'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '2.2.0'
+version = '2.2.2'
 group = "com.mcsimonflash.daem0ns.forge.triviaquest"
 archivesBaseName = "TriviaQuest-Forge"
 

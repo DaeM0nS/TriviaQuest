@@ -1,11 +1,13 @@
 # TriviaQuest - Developed by Simon_Flash
-# Config Version - 2.1.0
+# Ported to Forge and updated by DaeM0nS
+# Config Version - 2.2.0
 #
 # For reference, check out the TriviaQuest Wiki
-# https://github.com/SimonFlash/TriviaQuest/wiki
+# https://github.com/DaeM0nS/TriviaQuest/wiki
 #
-# For support, check out my Discord server
+# For support, check out the Simon_Flash Discord server
 # https://discordapp.com/invite/4wayq37
+# Or Mine : http://discord.gg/FxWZsNz
 
 config {
     # The format used for completion questions (use <word> for the word)
@@ -22,11 +24,11 @@ config {
     scramble-question="&fUnscramble the word: <word>"
     # The format used for scramble answers (use <word> for the word)
     scramble-answer="&fThe word was &d<word>&f!"
-    # Show answers to to the question after trivia ends.
+    # Globally show answers to to the question after trivia ends.
     show-answers=true
     # Interval between trivia questions by the runner, in seconds.
     trivia-interval=300
-    # Length of each trivia question, in seconds.
+    # Global length of each trivia question, in seconds.
     trivia-length=30
     # Prefix before trivia messages.
     trivia-prefix="&8&l[&5TriviaQuest&8&l]&f "

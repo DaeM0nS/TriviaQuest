@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod(modid = "triviaquest", name = "TriviaQuest", version = "2.2.0-forge", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12.2]", serverSideOnly = true)
+@Mod(modid = "triviaquest", name = "TriviaQuest", version = "2.2.2-forge", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12.2]", serverSideOnly = true)
 public class TriviaQuest {
 
 	@Instance("triviaquest")
@@ -51,7 +51,7 @@ public class TriviaQuest {
 	@Mod.EventHandler
 	public void onInitilization(FMLInitializationEvent event) {
 		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
-		logger.info("|  TriviaQuest - Version 2.2.0-Forge  |");
+		logger.info("|  TriviaQuest - Version 2.2.2-Forge  |");
 		logger.info("|      Developed By: Simon_Flash      |");
 		logger.info("|          Ported By: DaeM0nS         |");
 		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
