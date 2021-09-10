@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import net.minecraft.util.text.TextComponentString;
 import org.apache.logging.log4j.Logger;
 
 import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Config;
@@ -22,7 +23,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod(modid = "triviaquest", name = "TriviaQuest", version = "2.2.2-forge", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12.2]", serverSideOnly = true)
+@Mod(modid = "triviaquest", name = "TriviaQuest", version = TriviaQuest.VERSION, acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12.2]", serverSideOnly = true)
 public class TriviaQuest {
 
 	@Instance("triviaquest")
@@ -33,6 +34,8 @@ public class TriviaQuest {
 	private static Logger logger;
 	private static URL wiki;
 	private static URL discord;
+
+	public static final String VERSION = "2.2.2-forge";
 
 	private int timer = 0;
 
@@ -51,7 +54,7 @@ public class TriviaQuest {
 	@Mod.EventHandler
 	public void onInitilization(FMLInitializationEvent event) {
 		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
-		logger.info("|  TriviaQuest - Version 2.2.2-Forge  |");
+		logger.info("|  TriviaQuest - Version "+VERSION+"  |");
 		logger.info("|      Developed By: Simon_Flash      |");
 		logger.info("|          Ported By: DaeM0nS         |");
 		logger.info("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
@@ -97,6 +100,7 @@ public class TriviaQuest {
 		if (Trivia.trivia != null && event.getPlayer().canUseCommand(0, "triviaquest.answertrivia.chat")) {
 			if (Trivia.processAnswer(event.getPlayer(), event.getMessage())) {
 				event.setCanceled(true);
+				event.setComponent(new TextComponentString(""));
 			}
 		}
 	}

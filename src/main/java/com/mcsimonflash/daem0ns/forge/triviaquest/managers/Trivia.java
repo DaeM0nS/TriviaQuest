@@ -46,7 +46,7 @@ public class Trivia {
 
     public static void closeQuestion(boolean answered) {
         if (!answered) {
-        	FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(Util.getText(prefix+"Times up! " + (Config.showAnswers && trivia.showAnswer() ? trivia.getAnswer() : "Better luck next time!"))));
+        	FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(Util.getText(prefix+Config.timesUpTrivia + (Config.showAnswers && trivia.showAnswer() ? trivia.getAnswer() : Config.triviaNotShowAnswer))));
         }
         trivia = null;
 
@@ -66,7 +66,7 @@ public class Trivia {
 
     public static boolean processAnswer(ICommandSender src, String answer) {
         if (trivia.checkAnswer(answer)) {
-        	FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(Util.getText(prefix+"&d" + src.getName() + "&f got it! " + (Config.showAnswers && trivia.showAnswer() ? trivia.getAnswer() : "Better luck next time!"))));
+        	FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(new TextComponentString(Util.getText(prefix+Config.playerAnsweredGood.replace("%player%", src.getName()) + (Config.showAnswers && trivia.showAnswer() ? trivia.getAnswer() : Config.triviaNotShowAnswer))));
             if (FMLCommonHandler.instance().getMinecraftServerInstance().getOnlinePlayerNames().length >= Config.enableRewardsCount) {
                 String rewardCmd = Util.getReward().orElse(null);
                 if (rewardCmd != null && !rewardCmd.isEmpty()) {

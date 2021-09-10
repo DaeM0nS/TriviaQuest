@@ -39,6 +39,14 @@ public class Config {
 	public static List<String> enabledPacks;
 	public static Map<String, Integer> rewardCommands;
 
+	public static String startTriviaAlreadyActive;
+	public static String stopTriviaNotActive;
+	public static String timesUpTrivia;
+	public static String triviaNotShowAnswer;
+	public static String playerAnsweredGood;
+	public static String oneAnswerDisplay;
+	public static String severalAnswerDisplay;
+
 	public static void readConfig() {
 		enabledPacks = Lists.newArrayList();
 		rewardCommands = Maps.newHashMap();
@@ -50,6 +58,12 @@ public class Config {
 			if(!core.toFile().exists()) {
 				try(InputStream iStream = Config.class.getResourceAsStream("/assets/triviaquest/triviaquest.core");){
 					Files.copy(iStream, core);
+				}
+			}
+			Path msg = dir.resolve("triviaquest.msg");
+			if(!msg.toFile().exists()) {
+				try(InputStream iStream = Config.class.getResourceAsStream("/assets/triviaquest/triviaquest.msg");){
+					Files.copy(iStream, msg);
 				}
 			}
 			if (Files.notExists(packs)) {
@@ -92,6 +106,20 @@ public class Config {
 			} else if (root.getNode("config", "enable-on-startup").getBoolean(false)) {
 				Trivia.runnerEnabled = true;
 			}
+
+
+
+			CommentedConfigurationNode msgs = HoconConfigurationLoader.builder().setPath(msg).build().load();
+
+			startTriviaAlreadyActive = Util.getText(msgs.getNode("messages", "start-trivia-already-active").getString("&fA trivia question is currently active!"));
+			stopTriviaNotActive = Util.getText(msgs.getNode("messages", "stop-trivia-not-active").getString("&fOh no! There isn't an active trivia question!"));
+			timesUpTrivia = Util.getText(msgs.getNode("messages", "times-up-trivia").getString("&fTimes up!"));
+			triviaNotShowAnswer = Util.getText(msgs.getNode("messages", "trivia-not-show-answer").getString("&fBetter luck next time!"));
+			playerAnsweredGood = Util.getText(msgs.getNode("messages", "player-answer-good").getString("&d %player% &f got it! "));
+			oneAnswerDisplay = Util.getText(msgs.getNode("messages", "one-answer-display").getString("The answer was : "));
+			severalAnswerDisplay = Util.getText(msgs.getNode("messages", "several-answers-display").getString("The answers were : "));
+
+
 		} catch (IOException e) {
 			TriviaQuest.getLogger().error("Config could not be loaded!");
 			e.printStackTrace();

@@ -8,6 +8,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TriviaQuest.iml" filepath="$PROJECT_DIR$/.idea/modules/TriviaQuest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TriviaQuest_main.iml" filepath="$PROJECT_DIR$/.idea/modules/TriviaQuest_main.iml" group="TriviaQuest" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TriviaQuest_test.iml" filepath="$PROJECT_DIR$/.idea/modules/TriviaQuest_test.iml" group="TriviaQuest" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.api.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.test.iml" />
     </modules>
   </component>
 </project>

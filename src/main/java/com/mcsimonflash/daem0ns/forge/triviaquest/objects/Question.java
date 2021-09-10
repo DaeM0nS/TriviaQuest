@@ -1,5 +1,7 @@
 package com.mcsimonflash.daem0ns.forge.triviaquest.objects;
 
+import com.mcsimonflash.daem0ns.forge.triviaquest.managers.Config;
+
 import java.util.List;
 
 public class Question implements Trivia {
@@ -23,7 +25,7 @@ public class Question implements Trivia {
 
     @Override
     public String getAnswer() {
-        return "The answer" + (Answers.size() > 1 ? "s were " : " was ") + String.join(", ", Answers);
+        return (Answers.size() > 1 ? Config.severalAnswerDisplay : Config.oneAnswerDisplay) + String.join(", ", Answers);
     }
 
     @Override

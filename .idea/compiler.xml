@@ -2,6 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest" target="1.8" />
+      <module name="com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.api" target="1.8" />
+      <module name="com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.main" target="1.8" />
+      <module name="com.mcsimonflash.daem0ns.forge.triviaquest.TriviaQuest.test" target="1.8" />
       <module name="IdeaProjects-TriviaQuest_main" target="1.8" />
       <module name="IdeaProjects-TriviaQuest_test" target="1.8" />
       <module name="TriviaQuest_main" target="1.8" />

@@ -14,29 +14,28 @@ public class Util {
 
     public static String getText(String message) {
     	/*return message.replaceAll("(?<!\\\\)&", "\u00A7");*/
-        message = message.replaceAll("&4","\u00A74");
-        message = message.replaceAll("&c","\u00A7c");
-        message = message.replaceAll("&6","\u00A76");
-        message = message.replaceAll("&e","\u00A7e");
-        message = message.replaceAll("&2","\u00A72");
-        message = message.replaceAll("&a","\u00A7a");
-        message = message.replaceAll("&b","\u00A7b");
-        message = message.replaceAll("&3","\u00A73");
-        message = message.replaceAll("&1","\u00A71");
-        message = message.replaceAll("&9","\u00A79");
-        message = message.replaceAll("&d","\u00A7d");
-        message = message.replaceAll("&5","\u00A75");
-        message = message.replaceAll("&f","\u00A7f");
-        message = message.replaceAll("&7","\u00A77");
-        message = message.replaceAll("&8","\u00A78");
-        message = message.replaceAll("&0","\u00A70");
-        message = message.replaceAll("&r","\u00A7r");
-        message = message.replaceAll("&l","\u00A7l");
-        message = message.replaceAll("&o","\u00A7o");
-        message = message.replaceAll("&n","\u00A7n");
-        message = message.replaceAll("&m","\u00A7m");
-        message = message.replaceAll("&k","\u00A7k");
-        return message;
+        return message.replaceAll("&4","\u00A74")
+                .replaceAll("&c","\u00A7c")
+                .replaceAll("&6","\u00A76")
+                .replaceAll("&e","\u00A7e")
+                .replaceAll("&2","\u00A72")
+                .replaceAll("&a","\u00A7a")
+                .replaceAll("&b","\u00A7b")
+                .replaceAll("&3","\u00A73")
+                .replaceAll("&1","\u00A71")
+                .replaceAll("&9","\u00A79")
+                .replaceAll("&d","\u00A7d")
+                .replaceAll("&5","\u00A75")
+                .replaceAll("&f","\u00A7f")
+                .replaceAll("&7","\u00A77")
+                .replaceAll("&8","\u00A78")
+                .replaceAll("&0","\u00A70")
+                .replaceAll("&r","\u00A7r")
+                .replaceAll("&l","\u00A7l")
+                .replaceAll("&o","\u00A7o")
+                .replaceAll("&n","\u00A7n")
+                .replaceAll("&m","\u00A7m")
+                .replaceAll("&k","\u00A7k");
     }
 
     

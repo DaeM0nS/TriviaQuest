@@ -46,6 +46,8 @@ public class TriviaCommands extends CommandBase {
 			sender.sendMessage(new TextComponentString(TextFormatting.DARK_PURPLE + "+=-=-=-=-=["
 					+ TextFormatting.LIGHT_PURPLE + "TriviaQuest" + TextFormatting.DARK_PURPLE + "]=-=-=-=-=+"));
 
+			TextComponentTranslation version = new TextComponentTranslation(TextFormatting.DARK_PURPLE + "TriviaQuest " + TriviaQuest.VERSION + " by SimonFlash and updated to Pure Forge by DaeM0nS\n");
+
 			TextComponentTranslation base = new TextComponentTranslation(TextFormatting.DARK_PURPLE + "/TriviaQuest ");
 			base.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/TriviaQuest "))
 					.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -62,7 +64,7 @@ public class TriviaCommands extends CommandBase {
 					new TextComponentString(TextFormatting.DARK_PURPLE + "Subcommands: " + TextFormatting.LIGHT_PURPLE
 							+ "AnswerTrivia, AskTrivia, CancelTrivia, DisablePack, EnablePack, PostTrivia, ReloadTrivia, ToggleRunner, StopTrivia")));
 
-			sender.sendMessage(new TextComponentTranslation("%s" + "%s", new Object[] { base, sub }));
+			sender.sendMessage(new TextComponentTranslation("%s" + "%s" + "%s", new Object[] { version, base, sub }));
 
 			if (sender.canUseCommand(0, "triviaquest.answertrivia.base")) {
 				TextComponentString answer = new TextComponentString(
@@ -77,7 +79,9 @@ public class TriviaCommands extends CommandBase {
 										+ "AnswerTrivia, Answer, ans\n" + TextFormatting.DARK_PURPLE + "Permission: "
 										+ TextFormatting.LIGHT_PURPLE + "triviaquest.answertrivia.base\n"
 										+ TextFormatting.DARK_PURPLE + "Note: " + TextFormatting.LIGHT_PURPLE
-										+ "Players must have triviaquest.answertrivia.chat to use chat parsing")));
+										+ "Players must have triviaquest.answertrivia.chat to use chat parsing\n"
+										+ TextFormatting.DARK_PURPLE + "Note2: " + TextFormatting.LIGHT_PURPLE
+										+ "If you use a spigot hybrid server, players must also have minecraft.command.triviaquest.answertrivia.chat to use chat parsing")));
 
 				sender.sendMessage(answer);
 			}
@@ -154,7 +158,7 @@ public class TriviaCommands extends CommandBase {
 					return;
 				}
 				if (Trivia.trivia != null) {
-					throw new CommandException("A trivia question is currently active!");
+					throw new CommandException(Config.startTriviaAlreadyActive);
 				} else if (Trivia.trivia != null) {
 					Trivia.trivia = null;
 				}
@@ -188,7 +192,7 @@ public class TriviaCommands extends CommandBase {
 						return;
 					}
 					if (Trivia.trivia == null) {
-						throw new CommandException("Oh no! There isn't an active trivia question!");
+						throw new CommandException(Config.stopTriviaNotActive);
 					} else if (!Trivia.processAnswer(sender, args[1].toString())) {
 						sender.sendMessage(new TextComponentString(Trivia.prefix + "Oh no! That wasn't the answer :("));
 					}
