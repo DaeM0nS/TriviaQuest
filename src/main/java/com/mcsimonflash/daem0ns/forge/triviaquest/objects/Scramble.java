@@ -16,13 +16,11 @@ public class Scramble implements Trivia {
         Word = word;
         Choices = choices;
         Duration = duration;
-        ShowAnswer=showAnswer;
+        ShowAnswer = showAnswer;
     }
 
     @Override
-    public String getQuestion() {
-        return Config.scrambleQuestion.replace("<word>", Choices.isEmpty() ? Util.getScramble(Word) : Choices.get(Util.random.nextInt(Choices.size())));
-    }
+    public String getQuestion() { return Config.scrambleQuestion.replace("<word>", Choices.isEmpty() ? Util.getScramble(Word) : Choices.get(Util.random.nextInt(Choices.size()))); }
 
     @Override
     public String getAnswer() {

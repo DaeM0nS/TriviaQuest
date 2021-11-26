@@ -1,10 +1,6 @@
 package com.mcsimonflash.daem0ns.forge.triviaquest.managers;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -64,14 +60,18 @@ public class Util {
     }
 
     public static String getScramble(String word) {
-        char[] scramble = word.toCharArray();
-        for (int i = scramble.length - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            char t = scramble[j];
-            scramble[j] = scramble[i];
-            scramble[i] = t;
+        String newWord = word;
+        while(word.length() > 1 && !word.toLowerCase().replaceAll(String.valueOf(word.charAt(0)).toLowerCase(), "").equals("") && newWord.equalsIgnoreCase(word)) {
+            char[] scramble = word.toCharArray();
+            for (int i = scramble.length - 1; i > 0; i--) {
+                int j = random.nextInt(i + 1);
+                char t = scramble[j];
+                scramble[j] = scramble[i];
+                scramble[i] = t;
+            }
+            newWord = new String(scramble);
         }
-        return new String(scramble);
+        return newWord;
     }
 
 }

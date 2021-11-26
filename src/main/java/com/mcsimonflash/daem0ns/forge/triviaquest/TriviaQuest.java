@@ -35,7 +35,7 @@ public class TriviaQuest {
 	private static URL wiki;
 	private static URL discord;
 
-	public static final String VERSION = "2.2.2-forge";
+	public static final String VERSION = "2.2.3-forge";
 
 	private int timer = 0;
 
